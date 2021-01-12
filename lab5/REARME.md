@@ -1,10 +1,10 @@
 # Покрокова інструкція для виконання лабораторної роботи №5
 
-1. Необхідно створити
-  *акаунт на Azure
-..*ресурс групу
-  *Azure Redis for Cache
-  *Event hub
+1. Необхідно створити:
+  **акаунт на Azure**
+  **ресурс групу**
+  **Azure Redis for Cache**
+  **Event hub**
 2. Заходимо у наш redis у якому нам потрібно взнати Primary key і Primary connection string для запису стратегією redis
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab5/screens/Screenshot_4.png)
 3. Створюємо Evens Space, обираємо групу у якій буде наш сервіс, називаємо Namespace name, обираємо найближчий регіон, Pircing tier Стандартний -> Review + Create
