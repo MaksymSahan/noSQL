@@ -6,11 +6,11 @@
 3. Підключаємось до машини та вводимо наступні команди
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab6/screens/Screenshot_2.png)
 встановлюємо джаву
->sudo apt-get install default-jre
+> sudo apt-get install default-jre
 встановлення elastic і запуск
->sudo apt update
->sudo apt install apt-transport-https
->wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+> sudo apt update
+> sudo apt install apt-transport-https
+> wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 >sudo sh -c 'echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" > /etc/apt/sources.list.d/elastic-7.x.list'
 >sudo apt update
 >sudo apt install elasticsearch
