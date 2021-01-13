@@ -30,6 +30,7 @@ sudo nano /etc/elasticsearch/elasticsearch.yml
 sudo service elasticsearch restart
 ```
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab6/screens/Screenshot_7.png)
+
 після цього встановлюєм логстеш та кібану
 ```
 sudo apt-get install apt-transport-https
@@ -53,8 +54,11 @@ sudo service kibana start
 sudo service kibana status
 ```
 4. Тепер потрібно створити Logic app у Azure та створити connect у Logic app designer та заранити
+
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab6/screens/Screenshot_9.png)
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab6/screens/Screenshot_10.png)
+
 5.Після усіх виконаних команд потрібно перейти по екстернал айпі http://34.105.128.129:5601 і http://34.105.128.129:9200
+
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab6/screens/Screenshot_6.png)
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab6/screens/Screenshot_11.png)
