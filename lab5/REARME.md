@@ -19,4 +19,6 @@
 Event Hub > Entities > Event hubs > ваш Event Hub > Features > Proccess Data > Explore ( можливо буде необхідно почекати 1-2 хв).
 
 Redis Cache > Console > введіть команду hgetAll ConsoleLog
+![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab5/screens/Screenshot_2.png)
+![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab5/screens/Screenshot_3.png)
 
