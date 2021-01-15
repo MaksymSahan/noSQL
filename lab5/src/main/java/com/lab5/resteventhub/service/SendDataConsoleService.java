@@ -1,7 +1,9 @@
 package com.lab5.resteventhub.service;
 
 import org.json.JSONArray;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisShardInfo;
 
@@ -12,21 +14,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
-@Service
-public class SendDataConsoleImpl implements SendDataService {
+@Component
+public class SendDataConsoleService {
+
+    @Autowired
+    private Environment env;
 
     private static final boolean USE_SSL = true;
     private static final int MAX_NUMBER = 1000;
 
-    private final static String CACHE_HOSTNAME = "sahan.redis.cache.windows.net";
-    private final static String CACHE_KEY = "Yv4wVO1ZO6T7T+e9c84wbmi6wk4YFHgqdgtsaLNWdRk=";
-    private final static String MAP_NAME = "ConsoleLog";
-    private final static String FILE_NAME = "service.impl.Console";
-    private final static int PORT = 6380;
-
     public void sendAndLog(String url) {
-        JedisShardInfo info = new JedisShardInfo(CACHE_HOSTNAME, PORT, USE_SSL);
-        info.setPassword(CACHE_KEY);
+        JedisShardInfo info = new JedisShardInfo(env.getProperty("connections.cache.host"), Integer.parseInt(env.getProperty("PORT")), USE_SSL);
+        info.setPassword(env.getProperty("CACHE_KEY"));
         Jedis jedis = new Jedis(info);
 
         try {
@@ -36,8 +35,8 @@ public class SendDataConsoleImpl implements SendDataService {
             String inputLine;
             StringBuilder response = new StringBuilder();
             JSONArray jsonArray;
-            jedis.hset(MAP_NAME, "File", "None");
-            Map<String, String> redisData = jedis.hgetAll(MAP_NAME);
+            jedis.hset(env.getProperty("MAP_NAME"), "File", "None");
+            Map<String, String> redisData = jedis.hgetAll(env.getProperty("MAP_NAME"));
 
             int count = 1;
             int startRaw = 1;
@@ -67,33 +66,34 @@ public class SendDataConsoleImpl implements SendDataService {
     }
 
     public void showData(int count, JSONArray jsonArray, Jedis jedis, Map<String, String> map) {
-        jedis.hset(MAP_NAME, "Raws", "" + count);
+        jedis.hset(env.getProperty("MAP_NAME"), "Raws", "" + count);
         if (jsonArray.length() != MAX_NUMBER) {
-            System.out.println("Raws from file " + "'" + FILE_NAME + "': " + jedis.get("Raws"));
-            jedis.hset(MAP_NAME, "File", FILE_NAME);
+            System.out.println("Raws from file " + "'" + env.getProperty("FILE_NAME") + "': " + jedis.get("Raws"));
+            jedis.hset(env.getProperty("MAP_NAME"), "File", env.getProperty("FILE_NAME"));
 
-            jedis.hset(MAP_NAME, "Status", "NotFinished");
+            jedis.hset(env.getProperty("MAP_NAME"), "Status", "NotFinished");
         } else {
-            System.out.println("Raws from file " + "'" + FILE_NAME + "': " + jedis.get("Raws"));
-            jedis.hset(MAP_NAME, "Raws", "" + count);
-            jedis.hset(MAP_NAME, "Status", "Completed");
-            jedis.hset(MAP_NAME, "Info", "First attempt to input this file");
+            System.out.println("Raws from file " + "'" + env.getProperty("FILE_NAME") + "': " + jedis.get("Raws"));
+            jedis.hset(env.getProperty("MAP_NAME"), "Raws", "" + count);
+            jedis.hset(env.getProperty("MAP_NAME"), "Status", "Completed");
+            jedis.hset(env.getProperty("MAP_NAME"), "Info", "First attempt to input this file");
             System.out.println(map.get("Status"));
             jedis.close();
         }
     }
 
     public boolean checkIfFileExist(Jedis jedis, Map<String, String> map) {
-        map = jedis.hgetAll(MAP_NAME);
+        map = jedis.hgetAll(env.getProperty("MAP_NAME"));
         String name = map.get("File");
         String status = map.get("Status");
 
-        if (!name.equals(FILE_NAME)) {
-            jedis.hset(MAP_NAME, "File", FILE_NAME);
+        if (!name.equals(env.getProperty("FILE_NAME"))) {
+            jedis.hset(env.getProperty("MAP_NAME"), "File",env.getProperty("FILE_NAME"));
+            System.out.println("NAME IS ALREADY EXISTS");
         } else {
             if (status.equals("Completed")) {
-                jedis.hset(MAP_NAME, "Info", "Retry to input this file");
-                System.out.println("Such file: " + "'" + FILE_NAME + "'" + " already exists. Application stop");
+                jedis.hset(env.getProperty("MAP_NAME"), "Info", "Retry to input this file");
+                System.out.println("Such file: " + "'" + env.getProperty("FILE_NAME") + "'" + " already exists. Application stop");
                 jedis.close();
                 return false;
             }

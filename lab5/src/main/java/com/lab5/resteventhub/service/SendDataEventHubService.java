@@ -8,6 +8,8 @@ import com.microsoft.azure.eventhubs.EventHubClient;
 import com.microsoft.azure.eventhubs.EventHubException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -21,16 +23,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Service
-public class SendDataEventHubImpl implements SendDataService {
+public class SendDataEventHubService {
+
+    @Autowired
+    private Environment env;
 
     public void sendAndLog(String url) throws IOException, EventHubException {
         final ConnectionStringBuilder connStr = new ConnectionStringBuilder()
-                .setNamespaceName("sahan-nosql")//namespace
-                .setEventHubName("nosql")//hub name
-                /*Connection string–primary key*/
-                .setSasKeyName("Endpoint=sb://sahan-nosql.servicebus.windows.net/;SharedAccessKeyName=nosql;SharedAccessKey=ldwKFo2ija4/9uAzDlan8PGjYNQQUw04lCotJIiC9hA=;EntityPath=nosql")
-                /*Primary key*/
-                .setSasKey("ldwKFo2ija4/9uAzDlan8PGjYNQQUw04lCotJIiC9hA=");
+                .setNamespaceName(env.getProperty("hub.namespace"))
+                .setEventHubName(env.getProperty("hub.name"))
+                .setSasKeyName(env.getProperty("hub.connection"))
+                .setSasKey(env.getProperty("hub.key"));
 
         final Gson gson = new GsonBuilder().create();
         final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
