@@ -9,3 +9,7 @@
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab7/screens/Screenshot_3.png)
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab7/screens/Screenshot_4.png)
 ![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab7/screens/Screenshot_5.png)
+5. В хедері сторінки в полі пошуку вбиваємо Dev Tools та обираємо сервіс. Для виводу записів в певному періоді часу використовуємо наступний запит, де gt i lte це логічні greater than lower than or equal відповідно оператори :
+![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab7/screens/Screenshot_6.png)
+6. Для виводу останніх трьох записів з метрики, використовуємо наступний запит:
+![alt text](https://github.com/MaksymSahan/noSQL/blob/main/lab7/screens/Screenshot_7.png)
