@@ -1,0 +1,6 @@
+{
+  "event_hub": {
+    "conn_str": "Endpoint=sb://sahan9.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=D9jyzRF+UoUqVASK1QcyrS9jrZRbZOtikSeP+a13v8o=",
+    "eventhub_name": "sahan9"
+  }
+}
